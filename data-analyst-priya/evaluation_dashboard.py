@@ -128,3 +128,8 @@ else:
     
     with st.expander("View Full Evaluation Dataset"):
         st.dataframe(eval_df[['timestamp', 'user_input', 'bot_response', 'expected_response', 'relevance', 'helpfulness']], use_container_width=True)
+
+    # Auto-refresh button
+    if st.button("🔄 Refresh Data"):
+        st.cache_data.clear()
+        st.rerun()
