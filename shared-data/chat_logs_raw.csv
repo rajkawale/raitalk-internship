@@ -1,1 +1,13 @@
 timestamp,user_input,bot_response,response_length,feedback,optional_comment
+2026-04-24 10:05:22,i feel so stressed today,I'm really sorry you're dealing with this. I'm here for you.,62,positive,
+2026-04-24 10:12:45,what is the pricing?,Got it. Tell me a bit more.,27,negative,Doesn't answer my pricing question
+2026-04-24 10:15:10,im very anxious,That sounds tough. Do you want to talk more about it?,53,positive,
+2026-04-24 10:18:33,how does this work,I see. What's on your mind today?,33,positive,
+2026-04-24 10:20:15,this is bad,I hear you. It's totally okay to feel that way.,47,negative,Too generic
+2026-04-24 10:22:11,i need help logging in,Thanks for sharing. How can I help you with that?,49,positive,
+2026-04-24 10:25:30,sad,I'm sorry things are hard right now. I'm listening.,51,positive,
+2026-04-24 19:24:02,hellow,I see. What's on your mind today?,33,positive,
+2026-04-24 19:24:12,how,Interesting. Could you elaborate on that?,41,negative,hellp
+2026-04-24 19:24:42,hjow,I see. What's on your mind today?,33,positive,
+2026-04-24 19:28:11,how,Thanks for sharing. How can I help you with that?,49,positive,
+2026-04-24 19:29:20,he,I see. What's on your mind today?,33,positive,

@@ -4,8 +4,9 @@ from datetime import datetime
 import os
 import random
 
-# Define the path for the CSV log
-log_file_path = os.path.join("..", "shared-data", "chat_logs_raw.csv")
+# Define the path for the CSV log relative to this script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+log_file_path = os.path.abspath(os.path.join(current_dir, "..", "shared-data", "chat_logs_raw.csv"))
 
 def save_to_csv(data_dict):
     os.makedirs(os.path.dirname(log_file_path), exist_ok=True)

@@ -9,7 +9,8 @@ st.title("📊 Chatbot Analytics Dashboard")
 st.caption("Internship Project - Data Analyst: Sayali Pramod More")
 
 # --- Load Data ---
-data_path = os.path.join("..", "shared-data", "chat_logs_raw.csv")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.abspath(os.path.join(current_dir, "..", "shared-data", "chat_logs_raw.csv"))
 
 @st.cache_data(ttl=5) # Refresh every 5 seconds to capture live logs
 def load_data():
@@ -24,7 +25,7 @@ df = load_data()
 if df.empty:
     st.info("No data available yet. Start chatting with the bot to generate logs!")
 else:
-    # Ensure feedback columns exist (backward compatibility)
+    # Ensure feedback columns exist
     if 'feedback' not in df.columns:
         df['feedback'] = "unrated"
         df['optional_comment'] = ""
@@ -44,17 +45,13 @@ else:
     
     st.divider()
 
-    # --- Charts & Tables Layout ---
+    # --- Feedback Breakdown & Actionable Insights ---
     chart_col, table_col = st.columns([1, 1])
     
     with chart_col:
         st.subheader("Feedback Breakdown")
-        
-        # Prepare data for chart
         feedback_counts = df['feedback'].value_counts().reset_index()
         feedback_counts.columns = ['Feedback Type', 'Count']
-        
-        # Filter out 'unrated' for cleaner chart if preferred, or keep it
         feedback_counts = feedback_counts[feedback_counts['Feedback Type'].isin(['positive', 'negative'])]
         
         if not feedback_counts.empty:
@@ -62,30 +59,78 @@ else:
                 x='Feedback Type',
                 y='Count',
                 color=alt.Color('Feedback Type', scale=alt.Scale(domain=['positive', 'negative'], range=['#4CAF50', '#F44336']))
-            ).properties(height=300)
+            ).properties(height=250)
             st.altair_chart(chart, use_container_width=True)
         else:
             st.info("No feedback ratings submitted yet.")
 
     with table_col:
-        st.subheader("Actionable Insights (Negative Feedback)")
-        
+        st.subheader("Actionable Insights")
+        st.caption("Top 5 recent negative feedback comments")
         # Filter for negative feedback with comments
         neg_df = df[(df['feedback'] == 'negative') & (df['optional_comment'] != "")]
         
         if not neg_df.empty:
             st.dataframe(
-                neg_df[['timestamp', 'bot_response', 'optional_comment']],
+                neg_df.tail(5)[['timestamp', 'bot_response', 'optional_comment']],
                 column_config={
                     "timestamp": "Time",
                     "bot_response": "Bot Said",
                     "optional_comment": "User Comment"
                 },
                 hide_index=True,
-                height=300
+                height=250
             )
         else:
             st.success("No negative feedback comments yet! Great job.")
+
+    st.divider()
+
+    # --- Deep Dive: Top Issues & Recommendations ---
+    st.subheader("Deep Dive: Negative Feedback Analysis")
+    
+    # Categorization Logic
+    def categorize_issue(comment):
+        if not isinstance(comment, str) or comment.strip() == "":
+            return "Other"
+        c = comment.lower()
+        if any(w in c for w in ["generic", "not helpful"]):
+            return "Generic Response"
+        elif any(w in c for w in ["pricing", "doesn't answer", "not answering"]):
+            return "Missing Specific Answer"
+        elif any(w in c for w in ["confusing", "don't understand"]):
+            return "Unclear Response"
+        return "Other"
+
+    if not neg_df.empty:
+        neg_df = neg_df.copy()
+        neg_df['issue_type'] = neg_df['optional_comment'].apply(categorize_issue)
+        
+        issue_col, action_col = st.columns([1, 1])
+        
+        with issue_col:
+            st.write("**Top Issues Identified**")
+            issue_counts = neg_df['issue_type'].value_counts().reset_index()
+            issue_counts.columns = ['Issue Category', 'Count']
+            
+            issue_chart = alt.Chart(issue_counts).mark_bar(color='#FFA726').encode(
+                x=alt.X('Count', axis=alt.Axis(tickMinStep=1)), # Ensure integers
+                y=alt.Y('Issue Category', sort='-x')
+            ).properties(height=200)
+            st.altair_chart(issue_chart, use_container_width=True)
+            
+        with action_col:
+            st.write("**Recommended Actions**")
+            st.markdown("""
+            * **Generic Response** → Improve prompt specificity
+            * **Missing Specific Answer** → Add domain-specific responses (like pricing, features)
+            * **Unclear Response** → Simplify language and structure
+            * **Other** → Review manually
+            """)
+    else:
+        st.info("Not enough negative feedback to generate deep-dive analytics.")
+
+    st.divider()
 
     # --- Raw Data Expander ---
     with st.expander("View Raw Data Logs"):
