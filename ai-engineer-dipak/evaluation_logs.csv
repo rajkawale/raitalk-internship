@@ -1,1 +1,11 @@
 timestamp,prompt_version,user_input,bot_response,rating
+2026-04-20 10:00:00,v1,Hello,Hi there!,3
+2026-04-20 11:00:00,v1,Reset password,Go to settings.,2
+2026-04-20 12:00:00,v1,Pricing,It's $10/mo.,4
+2026-04-20 13:00:00,v1,Free trial,"Yes, 14 days.",5
+2026-04-20 14:00:00,v1,Help,How can I assist?,3
+2026-04-20 15:00:00,v2,Hello,Hello! How can I help you today?,5
+2026-04-20 16:00:00,v2,Reset password,You can reset it in settings.,4
+2026-04-20 17:00:00,v2,Pricing,Our plans start at $10/month.,5
+2026-04-20 18:00:00,v2,Free trial,"Yes, we offer a 14-day free trial.",5
+2026-04-20 19:00:00,v2,Help,I am here to help!,5
