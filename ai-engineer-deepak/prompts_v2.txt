@@ -1,0 +1,2 @@
+This file contains the second iteration of prompts for the AI chatbot.
+These prompts are refined based on initial evaluation and feedback.

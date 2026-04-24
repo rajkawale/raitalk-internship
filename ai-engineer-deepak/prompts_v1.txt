@@ -1,0 +1,2 @@
+This file contains the initial prompts designed for the AI chatbot.
+It serves as the first iteration of our prompt engineering efforts.
