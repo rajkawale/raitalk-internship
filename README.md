@@ -5,9 +5,9 @@ AI Conversational System with Analytics and Evaluation
 This project demonstrates an AI chatbot system with a data pipeline for user analytics and model evaluation. It simulates a real product workflow from interaction to improvement.
 
 ## Team
-- Deepak Appasayab Khandagiri – AI Engineer
-- Saylee More – User Data Analyst
-- Priya Rajki – Model Evaluation Analyst
+- Dipak Appasaheb Khandagale – AI Engineer
+- Sayali Pramod More – User Data Analyst
+- Priya Raju Marmat – Model Evaluation Analyst
 
 ## System Flow
 User input → Chatbot → Chat logs → Data analysis → Model evaluation → Improvements
