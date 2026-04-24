@@ -61,7 +61,7 @@ All modules use a centralized database:
 `shared-data/chat_logs_raw.csv`
 
 ## Demo Video
-*(Add Loom link here)*
+[Watch the System Demo Walkthrough](https://www.loom.com/share/a256ea6d5d674f8e847d1374645040d9)
 
 ## Expected Outcome
 You should see:
